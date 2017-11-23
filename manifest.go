@@ -225,19 +225,19 @@ func (m *Manifest) InstallDependencyWithCache(dep Dependency, cacheDir string, o
 	cacheFile := filepath.Join(cacheDir, fmt.Sprintf("%s-%s",dep.Name, dep.Version ))
 
 	if _, err := os.Stat(cacheDir); os.IsNotExist(err) {
-		return err
+		return "", err
 	}
 
 	entry, err := m.getEntry(dep)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	if _, err := os.Stat(cacheFile); os.IsNotExist(err) { //not cached
 		m.log.BeginStep("Installing %s %s", dep.Name, dep.Version)
 		err = m.FetchDependency(dep, cacheFile)
 		if err != nil {
-			return err
+			return "", err
 		}
 	}else{
 		m.log.BeginStep("Installing %s %s from application cache", dep.Name, dep.Version)
