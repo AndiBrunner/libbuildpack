@@ -244,7 +244,7 @@ func (m *Manifest) InstallDependencyWithCache(dep Dependency, cacheDir string, o
 	}
 	err = m.warnNewerPatch(dep)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	err = m.warnEndOfLife(dep)
