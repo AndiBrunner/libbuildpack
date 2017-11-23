@@ -249,7 +249,7 @@ func (m *Manifest) InstallDependencyWithCache(dep Dependency, cacheDir string, o
 
 	err = m.warnEndOfLife(dep)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	err = os.MkdirAll(outputDir, 0755)
